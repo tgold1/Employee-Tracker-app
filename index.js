@@ -88,7 +88,7 @@ function prompt() {
 }
 
 function viewALLDepartments () {
-   const query = `SELECT name AS departments, id AS "department id" FROM department`;
+   const query = `SELECT name AS Department, id AS "Department Id" FROM department`;
    connection.query(query, (err, result) => {
     if (err) {
         console.log(err);
@@ -97,3 +97,14 @@ function viewALLDepartments () {
    });
 
 }
+
+function viewAllRoles () {
+    const query = `SELECT role.title AS "Job Title", role.id AS "Role Id", department.name AS Department, role.salary AS Salary FROM role INNER JOIN department ON department.id = role.department_id`;
+    connection.query(query, (err, result) => {
+        if (err) {
+            console.log(err);
+          }
+          console.table(result);
+       });
+}
+
