@@ -9,17 +9,17 @@ VALUES ("Sales"),
 INSERT INTO role (title, salary, department_id)
 VALUES ("Salesperson", 80000, 1),
        ("Junior Salesperson", 55000, 1),
-       ("Sales Manager", 110000, 1)
+       ("Sales Manager", 110000, 1),
        ("Accountant", 60000, 2),
        ("Payroll", 45000, 2),
        ("Account Manager", 70000, 2),
-       ("Human Resource Representative", 50000, 3),
+       ("Human Resource Rep", 50000, 3),
        ("Human Resource Manager", 55000, 3),
        ("Warehouse Worker", 45000, 4),
        ("Warehouse Manager", 62000, 4),
        ("Receptionist", 48000, 5),
        ("Reception Manager", 56000, 5),
-       ("Customer Service Representative", 43000, 6),
+       ("Customer Service Rep", 43000, 6),
        ("Customer Service Manager", 51000, 6);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)

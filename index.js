@@ -24,7 +24,7 @@ const connection = mysql.createConnection({
 
     
     password: 'Phillies',
-    database: 'employees'
+    database: 'employees_db'
 });
 
 connection.connect(err => {
@@ -88,5 +88,12 @@ function prompt() {
 }
 
 function viewALLDepartments () {
-   const query = `SELECT department.name AS departments, department.id AS department id`
+   const query = `SELECT name AS departments, id AS "department id" FROM department`;
+   connection.query(query, (err, result) => {
+    if (err) {
+        console.log(err);
+      }
+      console.table(result);
+   });
+
 }
