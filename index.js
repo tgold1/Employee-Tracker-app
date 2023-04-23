@@ -117,3 +117,51 @@ function viewAllemployees () {
           console.table(result);
        });
 }
+
+function addaDepartment () {
+    inquirer
+        .prompt({
+            name: 'newdepartment',
+            type: 'input',
+            message: 'What department name do you want to add?'
+        })
+        .then(answer => {
+            const query = `INSERT INTO department(name) VALUES ("${answer.newdepartment}")`;
+            connection.query(query, (err) => {
+                if (err) {
+                    console.log(err);
+                  }
+                  console.log("Success, your new department was added to the database");
+               });
+            });
+}
+
+function addaRole () {
+    inquirer
+        .prompt([{
+            name: 'newrole',
+            type: 'input',
+            message: 'What role do you want to add?'
+        },
+        {
+            name: 'salary',
+            type: 'input',
+            message: 'What do you want the salary to be?'
+        },
+        {
+            name: 'department',
+            type: 'input',
+            message: 'Which department would you like the role to be in?'
+        }
+    ])
+
+        .then(answer => {
+            const query = `INSERT INTO role(title, salary, department_id) VALUES ("${answer.newrole}", ${answer.salary}, (SELECT id FROM department WHERE name = "${answer.department}"))`;
+            connection.query(query, (err) => {
+                if (err) {
+                    console.log(err);
+                  }
+                  console.log("Success, your new department was added to the database");
+               });
+            });
+}
