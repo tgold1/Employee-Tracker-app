@@ -161,7 +161,41 @@ function addaRole () {
                 if (err) {
                     console.log(err);
                   }
-                  console.log("Success, your new department was added to the database");
+                  console.log("Success, your new role was added to the database");
+               });
+            });
+}
+function addanEmployee () {
+    inquirer
+        .prompt([{
+            name: 'newemployeefirstname',
+            type: 'input',
+            message: 'What is the new employee first name?'
+        },
+        {
+            name: 'newemployeelastname',
+            type: 'input',
+            message: 'What is the new employee last name?'
+        },
+        {
+            name: 'newjob',
+            type: 'input',
+            message: 'What would you like their role to be?'
+        },
+        {
+            name: 'newmanager',
+            type: 'input',
+            message: 'What is the manager last name?'
+        }
+    ])
+
+        .then(answer => {
+            const query = `INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES ("${answer.newemployeefirstname}", "${answer.newemployeelastname}",(SELECT id FROM role WHERE title = "${answer.newjob}") , (SELECT id FROM (SELECT id FROM employee WHERE last_name = "${answer.newmanager}")))`;
+            connection.query(query, (err) => {
+                if (err) {
+                    console.log(err);
+                  }
+                  console.log("Success, your new employee was added to the database");
                });
             });
 }
