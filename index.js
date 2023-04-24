@@ -201,7 +201,7 @@ function addanEmployee () {
                     if (err) {
                         console.log(err);
                       } console.log(managerdata)
-                      connection.query( `INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES ("${answer.newemployeefirstname}", "${answer.newemployeelastname}", "${roledata[0].id}", "${managerdata[0].id}"`, (err) => {
+                      connection.query( `INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES ("${answer.newemployeefirstname}", "${answer.newemployeelastname}", "${roledata[0].id}", "${managerdata[0].id}")`, (err) => {
                         if (err) {
                             console.log(err);
                           }
