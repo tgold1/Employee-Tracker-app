@@ -196,11 +196,11 @@ function addanEmployee () {
             connection.query(rolequery, (err, roledata) => {
                 if (err) {
                     console.log(err);
-                  } console.log (roledata)
+                  } 
                   connection.query(managerquery, (err, managerdata) => {
                     if (err) {
                         console.log(err);
-                      } console.log(managerdata)
+                      } 
                       connection.query( `INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES ("${answer.newemployeefirstname}", "${answer.newemployeelastname}", "${roledata[0].id}", "${managerdata[0].id}")`, (err) => {
                         if (err) {
                             console.log(err);
@@ -210,7 +210,51 @@ function addanEmployee () {
                    });
                 });
                });
-            
-            
-            
 }
+function updateanEmployeeRole () {
+    inquirer
+        .prompt([{
+            name: 'pickemployee',
+            type: 'list',
+            message: 'Which employee would you like to update?',
+            choices: [
+                'Jim Halpert',
+                'Dwight Schrute',
+                'Stanley Hudson',
+                'Ryan Howard',
+                'Kevin Malone',
+                'Angela Martin',
+                'Toby Flenderson',
+                'Roy Richards',
+                'Pam Beesly',
+                'Kelly Kapor',
+                'John Carter'
+            ],
+        },
+        {
+            name: 'picknewrole',
+            type: 'list',
+            message: 'What is their new role?',
+            choices: [
+                'Salesperson',
+                'Junior Salesperson',
+                'Accountant',
+                'Payroll',
+                'Human Resource Rep',
+                'Warehouse Worker',
+                'Receptionist',
+                'Customer Service Rep'
+            ],
+        }
+    ])
+
+        .then (answer => {
+            const query = `UPDATE employee SET role_id = (SELECT id FROM role WHERE title = "${answer.picknewrole}") WHERE CONCAT(first_name, " ", last_name) = "${answer.pickemployee}"`;
+            connection.query(query, (err) => {
+                if (err) {
+                    console.log(err);
+                  }
+                  console.log("Success, your employee was updated to the database");
+               });
+            });
+        }
