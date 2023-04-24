@@ -1,6 +1,8 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
-const cTable = require('console.table');
+const consoleTable = require('console.table');
+
+consoleTable 
 
 const promptMessages = {
     viewALLDepartments: "View all departments",
@@ -29,10 +31,11 @@ const connection = mysql.createConnection({
 
 connection.connect(err => {
     if (err) throw err;
-    prompt();
+
+    openQuestion();
 });
 
-function prompt() {
+function openQuestion() {
     inquirer
         .prompt({
             name: 'options',
@@ -94,7 +97,9 @@ function viewALLDepartments () {
         console.log(err);
       }
       console.table(result);
+      openQuestion();
    });
+   
 
 }
 
@@ -105,8 +110,11 @@ function viewAllRoles () {
             console.log(err);
           }
           console.table(result);
+          openQuestion();
        });
+      
 }
+
 
 function viewAllemployees () {
     const query = `SELECT e.id AS "Employee Id", e.first_name AS "First Name", e.last_name AS "Last Name", role.title AS "Job Title", department.name AS Department, role.salary AS Salary, m.first_name AS "Manager First Name", m.last_name AS "Manager Last Name" FROM employee e LEFT JOIN employee m ON e.manager_id = m.id INNER JOIN role ON e.role_id = role.id INNER JOIN department ON role.department_id = department.id ORDER BY e.id`;
@@ -115,8 +123,11 @@ function viewAllemployees () {
             console.log(err);
           }
           console.table(result);
+          openQuestion();
        });
+       
 }
+
 
 function addaDepartment () {
     inquirer
@@ -133,8 +144,11 @@ function addaDepartment () {
                   }
                   console.log("Success, your new department was added to the database");
                });
+               openQuestion(); 
             });
+           
 }
+
 
 function addaRole () {
     inquirer
@@ -163,8 +177,12 @@ function addaRole () {
                   }
                   console.log("Success, your new role was added to the database");
                });
+               openQuestion();
             });
+               
 }
+
+
 function addanEmployee () {
     inquirer
         .prompt([{
@@ -207,10 +225,14 @@ function addanEmployee () {
                           }
                           console.log("Success, your new employee was added to the database");
                        });
+                       openQuestion();
                    });
                 });
                });
+                   
 }
+
+
 function updateanEmployeeRole () {
     inquirer
         .prompt([{
@@ -256,5 +278,10 @@ function updateanEmployeeRole () {
                   }
                   console.log("Success, your employee was updated to the database");
                });
+               openQuestion();
             });
+            
         }
+
+      
+        
