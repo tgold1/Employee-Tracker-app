@@ -29,11 +29,7 @@ const connection = mysql.createConnection({
     database: 'employees_db'
 });
 
-connection.connect(err => {
-    if (err) throw err;
 
-    openQuestion();
-});
 
 function openQuestion() {
     inquirer
@@ -283,5 +279,9 @@ function updateanEmployeeRole () {
             
         }
 
-      
+        connection.connect(err => {
+            if (err) throw err;
+        
+            openQuestion();
+        });
         
